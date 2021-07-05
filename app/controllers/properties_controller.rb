@@ -23,7 +23,7 @@ class PropertiesController < ApplicationController
   def create
     @property = Property.new(property_params)
     if @property.save
-      redirect_to blogs_path, notice: "ブログを作成しました！"
+      redirect_to properties_path, notice: "ブログを作成しました！"
     else
       render :new
     end
@@ -40,6 +40,10 @@ class PropertiesController < ApplicationController
         format.json { render json: @property.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def confirm
+    @property = Property.new(property_params)
   end
 
   # DELETE /properties/1 or /properties/1.json
