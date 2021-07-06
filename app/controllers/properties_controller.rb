@@ -1,5 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: %i[ show edit update destroy ]
+  before_action :set_closest_station, only: %i[ show edit update ]
 
   # GET /properties or /properties.json
   def index
@@ -8,13 +9,13 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1 or /properties/1.json
   def show
-    @closest_stations = @property.closest_stations
   end
 
   # GET /properties/new
   def new
     @property = Property.new
     2.times { @property.closest_stations.build }
+    @closest_stations_count = ClosestStation.where(property_id: @property.id).count
   end
 
   # GET /properties/1/edit
@@ -55,8 +56,8 @@ class PropertiesController < ApplicationController
   def set_property
     @property = Property.find(params[:id])
   end
-  def closest_station
-    @closest_station = Closest_station.find(params[:id])
+  def set_closest_station
+    @closest_stations = @property.closest_stations
   end
 
   # Only allow a list of trusted parameters through.

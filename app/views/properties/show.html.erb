@@ -21,8 +21,11 @@
   <%= @property.note %>
 </p>
 
-<% @closest_stations.each do |closest_station| %>
+<p><%= @closest_stations.ids.count %> 個の最寄り駅</p>
+
+<% @closest_stations.each_with_index do |closest_station, i| %>
   <% if @property.closest_stations.any? %>
+    <p>最寄り駅<%= i + 1 %></p>
     <p>
       <strong>路線:</strong>
       <%= closest_station.line %>
