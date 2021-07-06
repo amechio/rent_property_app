@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.number_field :price %>
+    <%= form.text_field :price %>
   </div>
 
   <div class="field">
@@ -36,6 +36,26 @@
     <%= form.text_area :note %>
   </div>
 
+  <!-- 最寄り駅 -->
+  <%= form.fields_for :closest_stations do |closest_station| %>
+    <p>最寄り駅</p>
+    <div class="field">
+      <%= closest_station.label :line %>
+      <%= closest_station.text_field :line %>
+    </div>
+
+    <div class="field">
+      <%= closest_station.label :station %>
+      <%= closest_station.text_field :station %>
+    </div>
+
+    <div class="field">
+      <%= closest_station.label :walking_time %>
+      <%= closest_station.text_field :walking_time %>
+    </div>
+  <% end %>
+
+  <!-- 登録ボタン -->
   <div class="actions">
     <%= form.submit %>
   </div>

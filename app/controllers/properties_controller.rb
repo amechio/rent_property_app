@@ -8,15 +8,18 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1 or /properties/1.json
   def show
+    @closest_station = @property.closest_stations
   end
 
   # GET /properties/new
   def new
     @property = Property.new
+    2.times { @property.closest_stations.build }
   end
 
   # GET /properties/1/edit
   def edit
+    @property.closest_stations.build
   end
 
   # POST /properties or /properties.json
@@ -31,14 +34,10 @@ class PropertiesController < ApplicationController
 
   # PATCH/PUT /properties/1 or /properties/1.json
   def update
-    respond_to do |format|
-      if @property.update(property_params)
-        format.html { redirect_to @property, notice: "Property was successfully updated." }
-        format.json { render :show, status: :ok, location: @property }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @property.errors, status: :unprocessable_entity }
-      end
+    if @property.update(property_params)
+      redirect_to properties_path, notice: "物件を編集しました！"
+    else
+      render :edit
     end
   end
 
@@ -60,9 +59,12 @@ class PropertiesController < ApplicationController
   def set_property
     @property = Property.find(params[:id])
   end
+  def closest_station
+    @closest_station = Closest_station.find(params[:id])
+  end
 
   # Only allow a list of trusted parameters through.
   def property_params
-    params.require(:property).permit(:name, :price, :address, :building_age, :note)
+    params.require(:property).permit(:name, :price, :address, :building_age, :note, closest_stations_attributes: [:line, :station, :walking_time, :property_id, :id, :_destroy,])
   end
 end
