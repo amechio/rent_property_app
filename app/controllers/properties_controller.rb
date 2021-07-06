@@ -8,7 +8,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1 or /properties/1.json
   def show
-    @closest_station = @property.closest_stations
+    @closest_stations = @property.closest_stations
   end
 
   # GET /properties/new
@@ -39,10 +39,6 @@ class PropertiesController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def confirm
-    @property = Property.new(property_params)
   end
 
   # DELETE /properties/1 or /properties/1.json

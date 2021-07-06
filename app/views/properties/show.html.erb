@@ -21,20 +21,22 @@
   <%= @property.note %>
 </p>
 
-<% @nearest_stations.each do |nearest_station| %>
-  <p>
-    <strong>路線:</strong>
-    <%= @closest_station.line %>
-  </p>
-  <p>
-    <strong>駅名:</strong>
-    <%= @closest_station.station %>
-  </p>
-  <p>
-    <strong>徒歩分数:</strong>
-    <%= @closest_station.walking_time %>
-  </p>
- <% end %>
+<% @closest_stations.each do |closest_station| %>
+  <% if @property.closest_stations.any? %>
+    <p>
+      <strong>路線:</strong>
+      <%= closest_station.line %>
+    </p>
+    <p>
+      <strong>駅名:</strong>
+      <%= closest_station.station %>
+    </p>
+    <p>
+      <strong>徒歩分数:</strong>
+      <%= closest_station.walking_time %>
+    </p>
+  <% end %>
+<% end %>
 
 <%= link_to '編集', edit_property_path(@property) %> |
 <%= link_to '戻る', properties_path %>
